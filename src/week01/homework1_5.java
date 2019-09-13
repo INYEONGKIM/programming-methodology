@@ -8,7 +8,8 @@ public class homework1_5 {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("면적 (평): ");
 		py = sc.nextInt();
-		sqmt = py*3.305785;		
+		sqmt = py*3.305785;
+		
 		System.out.println(sqmt);
 	}
 }
