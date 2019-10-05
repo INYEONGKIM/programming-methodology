@@ -29,12 +29,13 @@ public class Employee {
 	
 	public Double applyIncreaseRate() {
 		if (this.evalGrade == 1) {
-			return this.getSalary()*1.06;
+			this.setSalary(this.getSalary()*1.06);
 		}else if(this.evalGrade == 2) {
-			return this.getSalary()*1.04;
+			this.setSalary(this.getSalary()*1.04);
 		}else {
-			return this.getSalary()*1.02;
-		}
+			this.setSalary(this.getSalary()*1.02);
+		}		
+		return this.salary;
 	}
 		
 }
