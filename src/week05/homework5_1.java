@@ -57,12 +57,10 @@ class BankReader {
 	Scanner sc = new Scanner(System.in);
 
 	public BankReader() {
-//		Scanner sc = new Scanner(System.in); // Reading from System.in
 	}
 
 	public char readCommand(String message) {
 		System.out.print(message);
-//		Scanner sc = new Scanner(System.in);
 		input_line = this.sc.nextLine().toUpperCase();
 		return input_line.charAt(0);
 	}
@@ -106,17 +104,6 @@ class BankWriter {
 		return new DecimalFormat("0.00").format(i / 100.0);
 	}
 	
-	
-	// INYEONG
-	public String unconvert(double i) {
-		return new DecimalFormat("0.00").format(i);
-	}
-	
-	public void setTransaction(String message, double interest) {
-		last_transaction = message + " " + unconvert(interest);
-		System.out.println("transaction: " + last_transaction);
-	}
-	
 	public void setTransaction(String message, int amount) {
 		last_transaction = message + " " + unconvert(amount);
 		System.out.println("transaction: " + last_transaction);
@@ -150,7 +137,7 @@ class AccountController {
 	}
 
 	public void processTransactions() {
-		char command = reader.readCommand("Commands (P/S/D/W/T/I/Q): ");
+		char command = reader.readCommand("Commands (P/S/D/W/T/I/Q): \n");
 
 		switch (command) {
 		case 'P':
@@ -183,10 +170,19 @@ class AccountController {
 		{
 			
 			int amount = reader.readAmount();
-			if(secondary_account.deposit(amount) && account.withdraw(amount)) {
-				writer.setTransaction("transfer $", amount);
+			
+			if(account == primary_account) {
+				if(account.withdraw(amount) && secondary_account.deposit(amount)) {
+					writer.setTransaction("transfer $", amount);
+				}else {
+					writer.setTransaction("transfer error");
+				}
 			}else {
-				writer.setTransaction("transfer error");
+				if(account.withdraw(amount) && primary_account.deposit(amount)) {
+					writer.setTransaction("transfer $", amount);
+				}else {
+					writer.setTransaction("transfer error");
+				}
 			}
 			
 			break;
@@ -197,7 +193,7 @@ class AccountController {
 			double interest = reader.readInterest();
 			int nowBalance = this.account.getBalance();
 			if(account.increaseInterest(interest)) {
-				writer.setTransaction("interest $", (0.01*interest)*nowBalance);
+				writer.setTransaction("interest $", (int) (interest*nowBalance));
 			}else {
 				writer.setTransaction("interest error");
 			}
@@ -230,18 +226,3 @@ public class homework5_1 {
 		controller.processTransactions();
 	}
 }
-
-/*
- * D1000
-I0.1
-I0.2
-I0.3
-T1716
-S
-I0.1
-I0.2
-I0.3
-W2944.65
-W1
-Q
-*/
