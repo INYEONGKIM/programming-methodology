@@ -2,30 +2,40 @@ package week06;
 
 public class homework6_4 {
 	public static int longest_incseq(int[] a) {
-		int[] d = new int[a.length];
-		d[0]=1;
+		int max=0,n=0;
+		int[] arr = new int[a.length];
+		for(int i=0; i<a.length; i++) {
+			if (a[0]<=a[i]) {
+				arr[n]=a[i];
+				n++;
+			}
+		}
 		
-		for(int i=1; i<a.length; i++) {
+		
+		int[] d = new int[n];
+		d[0]=1;
+		for(int i=1; i<n; i++) {
 			d[i]=1;
 			for(int j=0; j<i; j++) {
-				if(a[i]>a[j] && d[i]<=d[j]) {
+				if(arr[i] > arr[j] && d[i]<=d[j]) {
 					d[i]=d[j]+1;
 				}
-				else if(a[i]==a[j]) {
+				else if(arr[i]==arr[j]) {
 					d[i]=d[j];
 				}
 			}
 		}
-		
-		int m=d[0];
-		for(int i=1; i<d.length; i++) {
-			m = Math.max(m, d[i]);
+		max = d[0];
+		for(int i=0; i<n; i++) {
+			max = Math.max(max, d[i]);
 		}
-		return m;
+				
+		return max;
 	}
 	
 	public static void main(String[] args) {
-		int[] arr = {10, 20, 10, 30, 20, 50};
+//		int[] arr = {2, 5, 6, 3, 4, 5};
+		int[] arr = {10, 9, 7, 8, 6, 11, 12};
 		System.out.println(longest_incseq(arr));
 	}
 }
