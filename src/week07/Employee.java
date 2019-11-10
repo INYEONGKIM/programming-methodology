@@ -36,5 +36,9 @@ public class Employee {
 	public void setDepartment(String newDepartment) {
 		this.department = newDepartment;
 	}
-
+	
+	
+	public String toString() {
+		return "직원의 이름 : " + this.getName() + ", 소속 부서: " + this.getDepartment();
+	}
 }

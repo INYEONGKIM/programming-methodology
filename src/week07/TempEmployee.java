@@ -33,7 +33,6 @@ public class TempEmployee extends Employee {
 
 	// 계약직 직원의 모든 데이터를 반환한다
 	public String toString() {
-		// 여기에 코드를 입력하세요
 		return "직원의 이름 : " + this.getName() + ", 소속 부서: " + this.getDepartment() + ", 시간당 임금: " + this.payRate
 				+ ", 근무 시간: " + this.getHoursworked();
 	}
